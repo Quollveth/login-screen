@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>welcome to sex.com</title>
+    <style> /*bad css alert*/
+		body {
+			background-color: #f7f7f7;
+			font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+			align-items: center;
+		}		
+		form {
+			background-color: #fafafa;
+			border-radius: 10px;
+			padding: 20px;
+			width: 300px;
+            margin-top: 20px;
+			box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+		}		
+		label {
+			display: block;
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 5px;
+			align-self: flex-start;
+		}		
+		input{
+			margin-bottom: 20px;
+		}
+		input[type="text"],input[type="password"] {
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+			font-size: 14px;
+			margin-bottom: 15px;
+			padding: 10px;
+			width: 100%;
+		}		
+		input[type="checkbox"] {
+			margin-right: 5px;
+		}		
+		button{
+			background-color: #0074D9;
+			border: none;
+			border-radius: 5px;
+			color: #fff;
+			cursor: pointer;
+			font-size: 16px;
+			padding: 10px;
+			width: 100%;
+		}		
+		#submit{
+			width: 80%;
+			margin-top: 20px;
+		}
+		button:hover {
+			background-color: #005cad;
+		}
+        div{
+            display: flex;
+            padding-bottom: 20px;
+        }
+  		.hidden{
+			display: none;
+			width: 0%;
+			height: 0%;
+			box-shadow: none;
+		}
+		.hidden>*{
+			display: none;
+			width: 0%;
+			height: 0%;
+		}
+		#captchaContainer{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.captcha{
+			height: 100px;
+			width: 300px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			display: inherit;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		#slurLabel{ /*worse css alert*/
+			font-size: 12px;
+			font-weight: normal;
+			margin-left: 30px;
+			margin-top: 50px;
+		}
+		#slurField{
+			margin-top: 5px;
+			width: 80%;
+		}
+		#loaderContainer {
+			margin-top: 50px;
+			width: 50px;
+			height: 50px;
+		}
+		.loader {
+			width: 50px;
+			height: 10px;
+			border-radius: 50%;
+			border: 10px solid #fafafa;
+			border-top-color: #3498db;
+			animation: spin 1s ease-in-out infinite;
+		}
+		@keyframes spin {
+			from { transform: rotate(0deg); }
+			to { transform: rotate(360deg); }
+		}
+		button:disabled,button:disabled:hover{
+			background-color: #92aec7;
+		}
+	</style>
+	<script> //if you though the css was bad wait till you see the js
+		window.onload = function() {
+			const usernameField = document.querySelector('#username');
+			const passwordField = document.querySelector('#password');
+			const loginButton = document.querySelector('#login');
+			const secondWindow = document.querySelector('#captchaContainer');
+			const loader = document.querySelector('#loaderContainer');
+			const captcha = document.querySelector('#slurLabel');
+			const captchaField = document.querySelector('#slurField');
+			const captchaButton = document.querySelector('#submit');
+			function toggleLogin(){
+				if (usernameField.value != "" && passwordField.value != ""){
+					loginButton.disabled = false;
+				} else {
+					loginButton.disabled = true;
+				}
+			}
+			function toggleCaptcha(){
+ 				if(captchaField.value != ""){
+					captchaButton.disabled = false;
+				} else {
+					captchaButton.disabled = true;
+				}
+			}
+			usernameField.addEventListener("input", toggleLogin);
+			passwordField.addEventListener("input", toggleLogin);
+			captchaField.addEventListener("input", toggleCaptcha);
+			loginButton.addEventListener("click", (event)=>{
+				event.preventDefault();
+				secondWindow.classList.remove('hidden');
+				setTimeout(()=>{
+					loader.classList.add('hidden');
+					captcha.classList.remove('hidden');
+				},2000)
+			})
+			captchaButton.addEventListener("click", (event)=>{
+				event.preventDefault();
+				window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; //you know what this is
+			})
+		}
+	</script>
+</head>
+<body>
+	<form>
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username">		
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password">		
+        <div>
+		<input type="checkbox" id="rememberme" name="rememberme">
+		<label for="rememberme">Remember Me</label>
+        </div>
+        <button id="login" disabled>Login</button>
+	</form>
+	<form id="captchaContainer" class="hidden">
+		<label for="captcha">Prove you are not an AI by solving the captcha:</label>
+		<div id="loaderContainer">
+			<div class="loader"></div>
+		</div>
+		<p class="hidden" id="slurLabel">
+			Write a slur in the following box
+			<input type="text" id="slurField">
+		</p>
+		<button id="submit" disabled>Submit</button>
+	</form>
+</body>
+</html>
